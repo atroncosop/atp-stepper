@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>atp-stepper demo</title>
+
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+
+    <script type="module">
+      import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
+      import '@polymer/iron-demo-helpers/demo-snippet';
+      import '@polymer/iron-icon/iron-icon.js';
+      import '@polymer/iron-icons/iron-icons.js';
+    </script>
+
+    <script type="module" src="../atp-stepper.js"></script>
+    <script type="module" src="../atp-step.js"></script>
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+    atp-step {
+      height: 250px;
+
+      --atp-step-continue-btn-color: var(--google-grey-100);
+      --atp-step-continue-back-color: var(--google-blue-500);
+
+      --atp-step-content-style: {
+        background-color: rgba(0, 0, 0, .1);
+        padding: 5px;
+        color: rgba(0, 0, 0, 0.8);
+      }
+
+    }
+
+    atp-stepper {
+      min-height: 350px;
+    }
+
+    .demo-actions {
+      display: flex;
+      flex-direction: row;
+      padding: 10px 0px 10px 0px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .demo-actions .buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+
+    .demo-actions .buttons .toggle,
+    .demo-actions .buttons .toggle-animation {
+      background-color: var(--paper-indigo-400);
+      color: white;
+    }
+
+    .demo-actions .buttons .reset {
+      background-color: var(--paper-pink-400);
+      color: white;
+    }        
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic atp-stepper demo</h3>
+      <demo-snippet>
+        <template>
+          <atp-stepper id="steps" linear sizing="contain" animate>
+            <atp-step title="Step 1" icon="icons:settings-remote" editable>
+              <div slot="content">
+                <div>Step 1 Content</div>
+                <paper-button raised>Content button</paper-button>
+              </div>
+            </atp-step>
+            <atp-step title="Step 2" icon="icons:card-giftcard">
+              <div slot="content">
+                <div>Step 2 Content</div>
+              </div>
+            </atp-step>
+            <atp-step title="Step 3">
+              <div slot="content">
+                <div>Step 3 Content</div>
+              </div>
+            </atp-step>
+          </atp-stepper>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>
