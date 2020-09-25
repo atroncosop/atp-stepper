@@ -17,5 +17,6 @@
     "chai": "^4.2.0",
     "mocha": "^6.1.4",
     "wct-mocha": "^1.0.1"
-  }
+  },
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" }  
 }
