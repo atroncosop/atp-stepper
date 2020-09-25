@@ -18,5 +18,11 @@
     "mocha": "^6.1.4",
     "wct-mocha": "^1.0.1"
   },
+    "keywords": [
+    "web-components",
+    "polymer",
+    "stepper"
+  ],
+"version": "1.0.0",
   "publishConfig": { "registry": "https://npm.pkg.github.com/" }  
 }
