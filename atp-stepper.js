@@ -198,6 +198,7 @@ class AtpStepperElement extends MutableData(PolymerElement) {
               <div class="label-icon">
                 <dom-if if="[[item._currentIcon]]">
                   <template>
+                    <iron-icon icon="[[item.icon]]"></iron-icon>
                     <iron-icon icon="[[item._currentIcon]]"></iron-icon>
                   </template>
                 </dom-if>
