@@ -49,7 +49,7 @@ class AtpStepElement extends PolymerElement {
         height: 48px;
       }
 
-      :host[hide-actions] #actions {
+      :host[hideActions] #actions {
         display: none;
       }
 
@@ -251,7 +251,10 @@ class AtpStepElement extends PolymerElement {
 
     connectedCallback() {
         super.connectedCallback();
-        if (this.hideActions) return;
+        if (this.hideActions) {
+          this.$.actions.style.display = 'none';
+          return;
+        }
         if (this.$.actionsSlot) {
             this._nodeObserver = new FlattenedNodesObserver(this.$.actionsSlot, (info) => {
                 this._actionButtons = Array.from(info.addedNodes.filter(n => n.nodeType === Node.ELEMENT_NODE && n.hasAttribute("data-action")));
@@ -301,7 +304,8 @@ class AtpStepElement extends PolymerElement {
         if (completed) {
             return editable ? this.editableIcon : this.completedIcon;
         }
-        return this.icon;
+        //return this.icon;
+        return "";
     }
 
     _errorChanged(invalid) {

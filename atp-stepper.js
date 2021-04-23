@@ -37,34 +37,34 @@ class AtpStepperElement extends MutableData(PolymerElement) {
     static get template() {
         return html `
         
-    <style include="paper-material-styles">
-      :host {
+<style include="paper-material-styles">
+:host {
         display: flex;
         flex-direction: column;
-      }
+}
 
-      .header-container {
+.header-container {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         align-items: center;
         @apply --atp-stepper-header-container-style;
-      }
+}
 
-      /* Horizontal Styles */
+/* Horizontal Styles */
 
-      .header {
+.header {
         display: flex;
         flex-direction: row;
         justify-content: center;
         overflow: hidden;
-      }
+}
 
-      :host(:not([vertical])) .header:not(:last-of-type) {
+:host(:not([vertical])) .header:not(:last-of-type) {
         flex: 1;
-      }
+}
 
-      :host(:not([vertical])) .header:not(:last-of-type)::after {
+:host(:not([vertical])) .header:not(:last-of-type)::after {
         content: '';
         display: inline-block;
         position: relative;
@@ -74,59 +74,70 @@ class AtpStepperElement extends MutableData(PolymerElement) {
         margin-left: -12px;
         width: 200px;
         background-color: rgba(0, 0, 0, 0.1);
-      }
+}
 
-      .header .label {
+.header .label {
         display: flex;
         flex-direction: row;
         cursor: pointer;
         align-items: center;
         padding: 24px 24px 24px 24px;
-      }
+}
 
-      .header .label:hover {
+.header .label:hover {
         background-color: #f0f0f0;
-      }
+}
 
-      .label-icon {
+.label-icon {
         color: rgba(0, 0, 0, 0.38);
         @apply --paper-font-caption;
         text-align: center;
         line-height: 24px;
-      }
+}
 
-      .label-text {
+.label-text {
         @apply --paper-font-body2;
         padding-left: 8px;
         color: rgba(0, 0, 0, 0.54);
-      }
+}
 
-      .label-text .optional,
-      .label-text .summary {
+.label-text .optional,
+.label-text .summary {
         @apply --paper-font-caption;
-      }
+}
 
-      :host(:not([vertical])) .label-text .main {
+.icon-status {
+    --iron-icon-fill-color: #6fd016;;
+    position: relative;
+    width: 20px;
+    left: -5px;
+    top: -5px;
+}
+
+:host(:not([vertical])) .label-text .main {
         @apply --paper-font-common-nowrap;
         max-width: 120px;
-      }
+}
 
-      .header.selected .label-icon,
-      .header[completed] .label-icon {
+.header.selected .label-icon {
+    color: var(--atp-stepper-icon-completed-color, var(--google-green-500));
+}
+
+.header[completed] .label-icon {
         color: var(--atp-stepper-icon-completed-color, var(--google-blue-500));
-      }
+}
 
-      .header.selected .label-text,
-      .header[completed] .label-text {
+.header.selected .label-text,
+.header[completed] .label-text {
         color: rgba(0, 0, 0, 0.87);
-      }
+}
 
-      .header[error] .label-text,
-      .header[error] .label-icon {
+.header[error] .label-text,
+.header[error] .label-icon {
         color: var(--atp-stepper-icon-error-color, --paper-deep-orange-a700);
-      }
+}
 
-      .step-number {
+.step-number {
         color: white;
         background-color: rgba(0, 0, 0, 0.38);
         border-radius: 50%;
@@ -135,38 +146,38 @@ class AtpStepperElement extends MutableData(PolymerElement) {
         height: 24px;
         max-height: 24px;
         max-width: 24px;
-      }
+}
 
-      .header.selected .step-number {
+.header.selected .step-number {
         background-color: var(--atp-stepper-icon-seleced-color, var(--google-blue-500));
-      }
+}
 
-      /* Vertical Styles */
+/* Vertical Styles */
 
-      :host([vertical]) .header-container {
+:host([vertical]) .header-container {
         flex-direction: column;
         flex-wrap: nowrap;
         align-items: stretch;
-      }
+}
 
-      :host([vertical]) .header {
+:host([vertical]) .header {
         flex-direction: column;
         justify-content: flex-start;
         overflow: visible;
-      }
+}
 
-      :host([vertical]) .vertical-step ::slotted(atp-step) {
+:host([vertical]) .vertical-step ::slotted(atp-step) {
         flex: 1;
-      }
+}
 
-      .vertical-step {
+.vertical-step {
         padding-left: 32px;
         display: flex;
         flex-flow: row;
         align-items: stretch;
-      }
+}
 
-      .header:not(:last-of-type) .vertical-step::before {
+.header:not(:last-of-type) .vertical-step::before {
         content: '';
         display: inline-block;
         position: relative;
@@ -175,41 +186,41 @@ class AtpStepperElement extends MutableData(PolymerElement) {
         margin-top: -10px;
         margin-bottom: -16px;
         background-color: rgba(0, 0, 0, 0.1);
-      }
+}
 
-      :host([vertical]) .header .label {
+:host([vertical]) .header .label {
         padding: 24px 24px 16px 24px;
-      }
+}
 
-      ::slotted(atp-step:not([selected])) {
+::slotted(atp-step:not([selected])) {
         display: none;
-      }
+}
 
-      .vertical-step ::slotted(atp-step:not([selected])) {
+.vertical-step ::slotted(atp-step:not([selected])) {
         display: none;
-      }
-    </style>
-    <iron-selector id="selector" class="header-container" selectable=".header.selectable" selected-class="selected" selected="{{selected}}"
-      on-iron-activate="_handleStepActivate" selected-attribute="selected">
+}
+</style>
+<iron-selector id="selector" class="header-container" selectable=".header.selectable" selected-class="selected" selected="{{selected}}" on-iron-activate="_handleStepActivate" selected-attribute="selected">
       <dom-repeat items="[[_steps]]" mutable-data>
         <template>
           <div class="header selectable" completed$="[[item.completed]]" error$="[[item.error]]">
             <div class="label">
               <div class="label-icon">
-                <dom-if if="[[item._currentIcon]]">
+                        <dom-if if="[[item.icon]]">
                   <template>
                     <iron-icon icon="[[item.icon]]"></iron-icon>
-                    <iron-icon icon="[[item._currentIcon]]"></iron-icon>
                   </template>
                 </dom-if>
-                <dom-if if="[[!item._currentIcon]]">
+                        <dom-if if="[[!item.icon]]">
                   <template>
                     <div class="step-number">[[_getStepNumber(index)]]</div>
                   </template>
                 </dom-if>
               </div>
               <div class="label-text">
-                <div class="main">[[item.title]]</div>
+                        <div class="main">[[item.title]]                                
+                            <iron-icon icon="[[item._currentIcon]]" class="icon-status"></iron-icon>
+                        </div>
                 <div class="summary">[[item.summary]]</div>
                 <dom-if if="[[item.optional]]">
                   <template>
@@ -226,16 +237,15 @@ class AtpStepperElement extends MutableData(PolymerElement) {
               </template>
             </dom-if>
           </div>
-          </div>
         </template>
       </dom-repeat>
-    </iron-selector>
-    <dom-if if="[[!vertical]]" restamp>
+</iron-selector>
+<dom-if if="[[!vertical]]" restamp>
       <template>
         <slot name="horizontal"></slot>
         </div>
       </template>
-    </dom-if>
+</dom-if>
     
     `;
     }
@@ -305,6 +315,9 @@ class AtpStepperElement extends MutableData(PolymerElement) {
                 if (!this.selected) {
                     this.selected = 0;
                 }
+                //generar evento de carga completa
+                var event = new CustomEvent('load');
+                this.dispatchEvent(event);
             }
         });
         
@@ -313,9 +326,7 @@ class AtpStepperElement extends MutableData(PolymerElement) {
     ready() {
         super.ready();
         this.addEventListener('step-action', evt => this._handleStepAction(evt));
-        this.addEventListener('step-error', evt => {
-            this.notifyPath('_steps')
-        });
+        this.addEventListener('step-error', evt => {this.notifyPath('_steps')});
     }
 
     _findSteps() {
@@ -394,6 +405,7 @@ class AtpStepperElement extends MutableData(PolymerElement) {
         step.completed = true;
         this.notifyPath('_steps');
         this.selected = this._findNextStep(this.selected);
+        this._steps[this.selected].$.content.scrollTop = 0;
     }
 
     /** @protected */
@@ -406,6 +418,7 @@ class AtpStepperElement extends MutableData(PolymerElement) {
     /** @protected */
     skip(step) {
         this.selected = this._findNextStep(this.selected);
+        this._steps[this.selected].$.content.scrollTop = 0;
     }
 
     /** @protected */
@@ -443,6 +456,13 @@ class AtpStepperElement extends MutableData(PolymerElement) {
             if ((step.completed && step.editable) || (!step.completed && step.optional)) {
                 return;
             }
+            //si el anterior esta completo se puede elegir
+            const stepAnt = this._steps[evt.detail.selected-1];
+            if (!stepAnt) return;
+            if ((stepAnt.completed && step.editable)) {
+                return;
+            }
+
             evt.preventDefault();
         }
     }
